@@ -1,4 +1,4 @@
-FROM node:18 AS build
+FROM docker.io/node:22.23.4 AS build
 
 WORKDIR /opt/node_app
 
@@ -12,7 +12,7 @@ ARG NODE_ENV=production
 
 RUN yarn build:app:docker
 
-FROM nginx:1.27-alpine
+FROM docker.io/nginxinc/nginx-unprivileged:alpine3.23-perl
 
 COPY --from=build /opt/node_app/excalidraw-app/build /usr/share/nginx/html
 
